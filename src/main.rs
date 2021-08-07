@@ -13,45 +13,37 @@ struct Story {
 }
 
 fn main() {
-    let mut when: Vec<String> = Vec::new();
-    let mut r#where: Vec<String> = Vec::new();
-    let mut who: Vec<String> = Vec::new();
-    let mut what: Vec<String> = Vec::new();
+    let file_names = get_file_names("./json");
+    let files = get_files(file_names, 4);
 
-    let files = get_files();
-    for file in files {
-        let reader = BufReader::new(file);
-        let story: Story = serde_json::from_reader(reader).expect("deserialization failed");
+    let stories: Vec<Story> = files
+        .iter()
+        .map(|file|{
+            let reader = BufReader::new(file);
+            serde_json::from_reader(reader).expect("deserialization failed")
+        })
+        .collect();
 
-        when.push(story.when);
-        r#where.push(story.r#where);
-        who.push(story.who);
-        what.push(story.what);
-    }
-
-    let mut rng = rand::thread_rng();
-
-    println!("{}", when[rng.gen::<usize>() % when.len()]);
+    println!("{}", stories[0].when);
     wait();
-    println!("{}", r#where[rng.gen::<usize>() % r#where.len()]);
+    println!("{}", stories[1].r#where);
     wait();
-    println!("{}", who[rng.gen::<usize>() % who.len()]);
+    println!("{}", stories[2].who);
     wait();
-    println!("{}", what[rng.gen::<usize>() % what.len()]);
+    println!("{}", stories[3].what);
+    wait();
 }
 
-fn get_files() -> Vec<File> {
-    let mut file_vec: Vec<File> = Vec::new();
-    let paths = read_dir("./json").expect("json directory not found");
+fn get_file_names(path: &str) -> Vec<String> {
+    let paths = read_dir(path).expect("directory not found");
+    paths.map(|path|path.unwrap().path().display().to_string()).collect()
+}
 
-    for path in paths {
-        let path_string = path.unwrap().path().display().to_string();
-        file_vec.push(
-            File::open(path_string).expect("file not found")
-        );
-    }
-
-    file_vec
+fn get_files(file_names: Vec<String>, num: i32) -> Vec<File> {
+    let mut rng = rand::thread_rng();
+    (0..=num)
+        .map(|_|File::open(&file_names[rng.gen::<usize>() % file_names.len()]).expect("file not found"))
+        .collect()
 }
 
 fn wait() {
