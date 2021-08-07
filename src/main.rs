@@ -1,11 +1,15 @@
-mod json_story;
-use json_story::JsonStory;
+mod json;
+mod story;
+
+use json::JsonDir;
+use story::json_to_stories;
 
 use std::io::stdin;
 
 fn main() {
-    let json = JsonStory::new(format!("./json"));
-    let stories = json.json_to_stories(4);
+    let json_dir = JsonDir::new(format!("./json"));
+    let files = json_dir.get_files(4);
+    let stories = json_to_stories(files);
 
     println!("{}", stories[0].when);
     wait();
