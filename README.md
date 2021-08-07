@@ -85,7 +85,7 @@ D さん
 このリポジトリを clone
 
 ```
-git clone https://github.com/denx-official/pull_request_tutorial
+git clone https://github.com/denx-official/pull_request_tutorial.git
 cd pull_request_tutorial
 ```
 
@@ -110,7 +110,7 @@ curl -LJO https://github.com/denx-official/pull_request_tutorial/releases/downlo
 Rust がインストールされている必要があります。
 
 ```
-git clone https://github.com/denx-official/pull_request_tutorial
+git clone https://github.com/denx-official/pull_request_tutorial.git
 cd pull_request_tutorial
 cargo run
 ```
