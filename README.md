@@ -28,10 +28,10 @@ A さん
 
 ```json
 {
-  "when": "時は戦国 天正 10 年 6 月 2 日 深夜",
-  "where": "本能寺にて",
-  "who": "織田信長が",
-  "what": "自害した"
+  "when": "昔々あるところに",
+  "where": "川で",
+  "who": "桃太郎が",
+  "what": "どんぶらこしていた"
 }
 ```
 
@@ -61,19 +61,56 @@ D さん
 
 ```json
 {
-  "when": "[速報]",
-  "where": "Apexで",
-  "who": "ワイ氏",
-  "what": "害悪プレイヤーを成敗したったｗｗｗｗｗｗｗ"
+  "when": "الآن مضى وقت طويل",
+  "where": "في الجبال",
+  "who": "الرجل العجوز تاكيتوري",
+  "what": "مصادفة الأميرة كاجويا"
 }
 ```
 
 といった文章ができたとします。  
 これをプログラムを使ってバラバラに組み替えます。
 
-- 時は戦国 天正 10 年 6 月 2 日 深夜
-- 最深部にて
-- クマさんが
-- 害悪プレイヤーを成敗したったｗｗｗｗｗｗｗ
+- ある日
+- 森の中で
+- クラウドたちが
+- مصادفة الأميرة كاجويا
 
 こういった文章を読んでゲラゲラ笑うのがこのゲームの楽しみ方です。
+
+## 遊び方
+
+### A: build 済みのファイルを使う場合
+
+このリポジトリを clone
+
+```
+git clone https://github.com/denx-official/pull_request_tutorial
+cd pull_request_tutorial
+```
+
+作業ディレクトリで build ファイルをダウンロード & 実行
+
+```
+# Windows
+curl -LJO https://github.com/denx-official/pull_request_tutorial/releases/download/0.1.0/pull_request_tutorial.exe
+./pull_request_tutorial.exe
+
+# macOS
+curl -LJO https://github.com/denx-official/pull_request_tutorial/releases/download/0.1.0/pull_request_tutorial_mac
+./pull_request_tutorial_mac
+
+# Linux
+curl -LJO https://github.com/denx-official/pull_request_tutorial/releases/download/0.1.0/pull_request_tutorial_linux
+./pull_request_tutorial_linux
+```
+
+### B: 自前で build する場合
+
+Rust がインストールされている必要があります。
+
+```
+git clone https://github.com/denx-official/pull_request_tutorial
+cd pull_request_tutorial
+cargo run
+```
