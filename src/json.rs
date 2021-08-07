@@ -22,13 +22,6 @@ impl JsonDir {
             .collect()
     }
 
-    pub fn get_all_files(self) -> Vec<File> {
-        self.get_file_names()
-            .iter()
-            .map(|name|File::open(name).expect("file not found"))
-            .collect()
-    }
-
     fn get_file_names(self) -> Vec<String> {
         let paths = read_dir(self.path).expect("directory not found");
         paths.map(|path|path.unwrap().path().display().to_string()).collect()
