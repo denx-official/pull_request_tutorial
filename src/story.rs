@@ -12,11 +12,11 @@ pub struct Story {
 }
 
 pub fn json_to_stories(files: Vec<File>) -> Vec<Story> {
-  files
-      .iter()
-      .map(|file|{
-          let reader = BufReader::new(file);
-          serde_json::from_reader(reader).expect("deserialization failed")
-      })
-      .collect()
+    files
+        .iter()
+        .map(|file|{
+            let reader = BufReader::new(file);
+            serde_json::from_reader(reader).expect("deserialization failed")
+        })
+        .collect()
 }
