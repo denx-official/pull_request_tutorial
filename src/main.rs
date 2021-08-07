@@ -1,28 +1,11 @@
-use serde::{Deserialize, Serialize};
-use rand::Rng;
+mod json_story;
+use json_story::JsonStory;
 
-use std::fs::{File, read_dir};
-use std::io::{BufReader, stdin};
-
-#[derive(Serialize, Deserialize, Debug)]
-struct Story {
-    when: String,
-    r#where: String,
-    who: String,
-    what: String,
-}
+use std::io::stdin;
 
 fn main() {
-    let file_names = get_file_names("./json");
-    let files = get_files(file_names, 4);
-
-    let stories: Vec<Story> = files
-        .iter()
-        .map(|file|{
-            let reader = BufReader::new(file);
-            serde_json::from_reader(reader).expect("deserialization failed")
-        })
-        .collect();
+    let json = JsonStory::new(format!("./json"));
+    let stories = json.json_to_stories(4);
 
     println!("{}", stories[0].when);
     wait();
@@ -32,18 +15,6 @@ fn main() {
     wait();
     println!("{}", stories[3].what);
     wait();
-}
-
-fn get_file_names(path: &str) -> Vec<String> {
-    let paths = read_dir(path).expect("directory not found");
-    paths.map(|path|path.unwrap().path().display().to_string()).collect()
-}
-
-fn get_files(file_names: Vec<String>, num: i32) -> Vec<File> {
-    let mut rng = rand::thread_rng();
-    (0..=num)
-        .map(|_|File::open(&file_names[rng.gen::<usize>() % file_names.len()]).expect("file not found"))
-        .collect()
 }
 
 fn wait() {
